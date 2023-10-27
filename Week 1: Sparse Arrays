@@ -1,0 +1,66 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'matchingStrings' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts following parameters:
+#  1. STRING_ARRAY strings
+#  2. STRING_ARRAY queries
+#
+
+def matchingStrings(strings, queries):
+    #print("something")
+    # Write your code here
+    n=len(strings)
+    q=len(queries)
+    s_count=0
+    q_count=0
+    count = 0
+    arrCount = 0
+    number = [0] * q
+    for q in queries:
+        count=0
+        for s in strings:
+            if q==s:
+                count=count+1
+        
+        
+        number[arrCount]=count
+        arrCount=arrCount+1
+        
+    #for i in number:
+    #    print(i)
+    return number
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    strings_count = int(input().strip())
+
+    strings = []
+
+    for _ in range(strings_count):
+        strings_item = input()
+        strings.append(strings_item)
+
+    queries_count = int(input().strip())
+
+    queries = []
+
+    for _ in range(queries_count):
+        queries_item = input()
+        queries.append(queries_item)
+
+    res = matchingStrings(strings, queries)
+    #matchingStrings(strings, queries)
+    fptr.write('\n'.join(map(str, res)))
+    fptr.write('\n')
+
+    fptr.close()
