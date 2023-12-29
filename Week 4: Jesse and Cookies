@@ -1,0 +1,59 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'cookies' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER k
+#  2. INTEGER_ARRAY A
+#
+
+def cookies(k, A):
+    # Sort the sweetness array A in ascending order
+    A.sort()
+
+    operations = 0
+
+    while A[0] < k:
+        # If there is only one cookie and its sweetness is still less than k, it's not possible
+        if len(A) == 1:
+            return -1
+
+        # Mix the two least sweet cookies
+        least_sweet = A.pop(0)
+        second_least_sweet = A.pop(0)
+        new_cookie = least_sweet + 2 * second_least_sweet
+
+        # Insert the new cookie back into the sorted array
+        index = 0
+        while index < len(A) and new_cookie > A[index]:
+            index += 1
+        A.insert(index, new_cookie)
+
+        operations += 1
+
+    return operations
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = int(first_multiple_input[0])
+
+    k = int(first_multiple_input[1])
+
+    A = list(map(int, input().rstrip().split()))
+
+    result = cookies(k, A)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
